@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -54,21 +55,10 @@ Encore
         config.corejs = 3;
     })
 
-    // enables Sass/SCSS support
-    //.enableSassLoader()
+    .addPlugin(new webpack.DefinePlugin({
+        'ENV_API_ENDPOINT': JSON.stringify(process.env.API_ENDPOINT),
+    }))
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
-
-    // uncomment if you use React
-    //.enableReactPreset()
-
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
-
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
